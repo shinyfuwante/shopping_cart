@@ -8,8 +8,8 @@ export default function Homepage() {
       <div className="flex flex-auto flex-col justify-center items-center p-6 bg-[#dbc4b2]">
         <div className="border-2 rounded p-4 border-[#c24f22] h-[14rem] bg-amber-100">
           <div className="text-center">
-            Welcome to the Cat Supply Store!
-            Here you can pretend to buy cat supplies for your cat. 
+            Welcome to the Black Cat Store!
+            Here you can pretend to buy things from the FakeStore API for your cat. 
             This storefront lets you browse our items and add them to your cart,
             but you won't be able to check out! (Store is actually run by cats).
             <div className="text-center">

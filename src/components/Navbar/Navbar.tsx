@@ -3,7 +3,7 @@ import React from "react";
 export default function Navbar() {
   return (
     <div className="font-quicksand flex justify-between bg-indigo-500 p-3 text-lg font-semibold text-indigo-50">
-      <a href="/">Cat Supply Store</a>
+      <a href="/">Black Cat Store</a>
       <a href="/store">Storefront</a>
       <button id="cart">
         <svg
