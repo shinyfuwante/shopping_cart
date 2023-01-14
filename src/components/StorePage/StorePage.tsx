@@ -1,17 +1,18 @@
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
+import ProductCard from "../ProductCard/ProductCard";
 
-// define interface of Product 
+// define interface of Product
 
-interface Product {
-    id: number;
-    title: string;
-    price: number;
-    image: string;
+export interface Product {
+  id: number;
+  title: string;
+  price: number;
+  image: string;
 }
 export default function StorePage() {
-    // declare products as an array of Product[]
+  // declare products as an array of Product[]
   const [products, setProducts] = useState<Product[]>([]);
   const getProducts = async (amount: number) => {
     const response: Response = await fetch(
@@ -27,9 +28,17 @@ export default function StorePage() {
   }, []);
   return (
     <>
-      {products.map(product => {
-       return <div key = {product.id}>{product.title}</div>
-    })}
+      {products.map((product) => {
+        return (
+          <ProductCard
+            key={product.id}
+            id={product.id}
+            title={product.title}
+            price={product.price}
+            image={product.image}
+          />
+        );
+      })}
     </>
   );
 }
