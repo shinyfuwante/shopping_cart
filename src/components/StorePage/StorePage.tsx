@@ -24,21 +24,23 @@ export default function StorePage() {
   };
 
   useEffect(() => {
-    getProducts(5);
+    getProducts(20);
   }, []);
   return (
-    <>
-      {products.map((product) => {
-        return (
-          <ProductCard
-            key={product.id}
-            id={product.id}
-            title={product.title}
-            price={product.price}
-            image={product.image}
-          />
-        );
-      })}
-    </>
+    <div className="flex justify-center items-center p-4">
+      <div className="grid grid-cols-4 grid-rows-1 gap-2">
+        {products.map((product) => {
+          return (
+            <ProductCard
+              key={product.id}
+              id={product.id}
+              title={product.title}
+              price={product.price}
+              image={product.image}
+            />
+          );
+        })}
+      </div>
+    </div>
   );
 }
