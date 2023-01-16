@@ -1,5 +1,5 @@
 import React from "react";
-import { Product } from "../StorePage";
+import { Product } from "../Storefront/Storefront";
 const ProductCard = ({ title, price, image }: Product) => {
   return (
     <div className="font-quicksand flex max-w-sm flex-col justify-between border-2 border-solid border-sky-500 p-2">

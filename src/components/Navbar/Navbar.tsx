@@ -1,11 +1,12 @@
 import React from "react";
+import { NavbarProps } from "../Storefront/Storefront";
 
-export default function Navbar() {
+export default function Navbar ({handleCartClick}: NavbarProps) {
   return (
     <div className="font-quicksand flex justify-between bg-indigo-500 p-3 text-lg font-semibold text-indigo-50">
       <a href="/">Black Cat Store</a>
       <a href="/store">Storefront</a>
-      <button id="cart">
+      <button onClick={handleCartClick}id="cart">
         <svg
           fill="#eef2ff"
           version="1.1"

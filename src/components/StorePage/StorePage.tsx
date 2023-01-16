@@ -2,15 +2,8 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import ProductCard from "../ProductCard/ProductCard";
+import { Product } from "../Storefront/Storefront";
 
-// define interface of Product
-
-export interface Product {
-  id: number;
-  title: string;
-  price: number;
-  image: string;
-}
 export default function StorePage() {
   // declare products as an array of Product[]
   const [products, setProducts] = useState<Product[]>([]);
