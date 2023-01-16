@@ -1,8 +1,8 @@
-import { Router } from "./components/Router/Router";
+import Storefront from "./components/Storefront/Storefront";
 
 function App() {
   return (
-    <Router/>
+    <Storefront/>
   );
 }
 

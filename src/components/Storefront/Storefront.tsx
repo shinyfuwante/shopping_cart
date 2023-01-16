@@ -3,7 +3,7 @@ import HomePage from "../HomePage/HomePage";
 import StorePage from "../StorePage/StorePage";
 import Navbar from "../Navbar/Navbar";
 
-export const Router = () => {
+const Storefront = () => {
   return (
     <>
       <Navbar></Navbar>
@@ -16,3 +16,5 @@ export const Router = () => {
     </>
   );
 };
+
+export default Storefront;
