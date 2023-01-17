@@ -8,6 +8,9 @@ import { useState, MouseEventHandler } from "react";
 export interface NavbarProps {
   handleCartClick: MouseEventHandler
 }
+export interface cartProps {
+  cart: Array<Product>;
+}
 // define interface of Product
 export interface Product {
   id: number;
@@ -24,7 +27,7 @@ const Storefront = () => {
   return (
     <>
       <Navbar handleCartClick={()=>setDisplayCart(!displayCart)}></Navbar>
-      {displayCart && <Cart></Cart>}
+      {displayCart && <Cart cart={cart}></Cart>}
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage></HomePage>} />
