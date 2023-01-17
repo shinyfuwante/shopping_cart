@@ -11,7 +11,9 @@ export interface NavbarProps {
 export interface cartProps {
   cart: Array<cartedProduct>;
 }
-// define interface of Product
+export interface StorePageProps {
+  handleAddCart: (params: any) => void
+}
 export interface Product {
   id: number;
   title: string;
@@ -44,7 +46,7 @@ const Storefront = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage></HomePage>} />
-          <Route path="/store" element={<StorePage></StorePage>} />
+          <Route path="/store" element={<StorePage handleAddCart={addToCart}></StorePage>} />
         </Routes>
       </BrowserRouter>
     </>

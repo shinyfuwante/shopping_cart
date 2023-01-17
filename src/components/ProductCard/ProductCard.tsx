@@ -1,16 +1,24 @@
 import React from "react";
 import { Product } from "../Storefront/Storefront";
-const ProductCard = ({ title, price, image }: Product) => {
+import { ProductCardProps } from "../StorePage";
+const ProductCard = ({ productInfo, onClick }: ProductCardProps) => {
   return (
     <div className="font-quicksand flex max-w-sm flex-col justify-between border-2 border-solid border-sky-500 p-2">
       <div className=" h-80 self-center p-4">
-        <img src={image} alt={`${title}`} className="h-full"></img>
+        <img
+          src={productInfo.image}
+          alt={`${productInfo.title}`}
+          className="h-full"
+        ></img>
       </div>
       <div>
-        <div className="truncate font-bold">{title}</div>
-        <div className="flex justify-between items-center">
-          <div className="w-10 text-left">${price.toFixed(2)}</div>
-          <button className="rounded-full bg-black p-[0.25em] text-slate-50">
+        <div className="truncate font-bold">{productInfo.title}</div>
+        <div className="flex items-center justify-between">
+          <div className="w-10 text-left">${productInfo.price.toFixed(2)}</div>
+          <button
+            className="rounded-full bg-black p-[0.25em] text-slate-50"
+            onClick={() => onClick(productInfo)}
+          >
             Add to Cart
           </button>
         </div>

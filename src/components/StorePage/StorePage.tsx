@@ -2,9 +2,13 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import ProductCard from "../ProductCard/ProductCard";
-import { Product } from "../Storefront/Storefront";
+import { Product, StorePageProps } from "../Storefront/Storefront";
 
-export default function StorePage() {
+export interface ProductCardProps {
+    productInfo: Product
+    onClick: (params: Product) => void
+}
+export default function StorePage({handleAddCart}: StorePageProps) {
   // declare products as an array of Product[]
   const [products, setProducts] = useState<Product[]>([]);
   const getProducts = async (amount: number) => {
@@ -25,11 +29,9 @@ export default function StorePage() {
         {products.map((product) => {
           return (
             <ProductCard
-              key={product.id}
-              id={product.id}
-              title={product.title}
-              price={product.price}
-              image={product.image}
+              key = {product.id}
+              productInfo = {product}
+              onClick={(product: Product) => handleAddCart(product)}
             />
           );
         })}
