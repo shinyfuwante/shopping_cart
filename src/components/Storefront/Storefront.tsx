@@ -9,7 +9,7 @@ export interface NavbarProps {
   handleCartClick: MouseEventHandler
 }
 export interface cartProps {
-  cart: Array<Product>;
+  cart: Array<cartedProduct>;
 }
 // define interface of Product
 export interface Product {
@@ -18,11 +18,24 @@ export interface Product {
   price: number;
   image: string;
 }
+export interface cartedProduct {
+  product: Product;
+  quantity: number
+}
 const Storefront = () => {
   const [displayCart, setDisplayCart] = useState(false);
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState<cartedProduct[]>([]);
   const addToCart = (product: Product, amount = 1) => {
-
+    const productToAdd = {product: product, quantity: amount}
+    const oldProduct = cart.findIndex(cartedItem => cartedItem.product === product)
+    if (oldProduct === -1) {
+      setCart([...cart, productToAdd]);
+    } else {
+      const newCart = [...cart];
+      const productToUpdate = newCart[oldProduct];
+      productToUpdate.quantity += amount;
+      setCart(newCart);
+    }
   }
   return (
     <>
