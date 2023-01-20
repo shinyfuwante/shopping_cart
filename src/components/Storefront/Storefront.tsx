@@ -10,9 +10,16 @@ export interface NavbarProps {
 }
 export interface cartProps {
   cart: Array<cartedProduct>;
+  handleAddCart: (params: any) => void
+  handleSubtractCart: (params: any) => void
 }
 export interface StorePageProps {
   handleAddCart: (params: any) => void
+  handleSubtractCart: (params: any) => void
+}
+export interface cartModify {
+  handleAddCart: (params: any) => void
+  handleSubtractCart: (params: any) => void
 }
 export interface Product {
   id: number;
@@ -39,14 +46,26 @@ const Storefront = () => {
       setCart(newCart);
     }
   }
+  const subtractFromCart = (product: Product, amount = 1) => {
+    const oldProduct = cart.findIndex(cartedItem => cartedItem.product === product)
+    if (oldProduct > -1) {
+      let newCart = [...cart];
+      const productToUpdate = newCart[oldProduct];
+      productToUpdate.quantity -= amount;
+      if (productToUpdate.quantity === 0) {
+        newCart = newCart.filter(product => product !== productToUpdate);
+      }
+      setCart(newCart);
+    }
+  }
   return (
     <>
       <Navbar handleCartClick={()=>setDisplayCart(!displayCart)}></Navbar>
-      {displayCart && <Cart cart={cart}></Cart>}
+      {displayCart && <Cart cart={cart} handleAddCart={addToCart} handleSubtractCart={subtractFromCart}></Cart>}
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage></HomePage>} />
-          <Route path="/store" element={<StorePage handleAddCart={addToCart}></StorePage>} />
+          <Route path="/store" element={<StorePage handleAddCart={addToCart} handleSubtractCart={subtractFromCart}></StorePage>} />
         </Routes>
       </BrowserRouter>
     </>
