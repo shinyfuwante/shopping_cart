@@ -1,6 +1,19 @@
-# Getting Started with Create React App
+Live Demo:
+https://shinyfuwante.github.io/shopping_cart/
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Basic shopping cart implementation made using React, Typescript, TailwindCSS, and React Router. 
+
+The store uses the FakeStore API to populate the storefront. This was an exercise of fetching data from an API and processing it and displaying it to the client. 
+
+The typescript is probably very naive, but I found that using Typescript help to minimize any bugs while in development. There is probably a fair amount of cleanup that can be done. In addition, using Tailwind is a nice developer experience, but may be overkill for something simple such as this. Nevertheless, having mostly standardized classes help reduce the requirement to name things and keep things fairly simple.
+
+React Router is used for client side routing, just for fun. 
+
+Potential improvements;
+1) Some sort of data persistence (local storage perhaps?)
+2) Some sort of loading screen while waiting to fetch from FakeStore.
+
+## ----------------------------------------------------
 
 ## Available Scripts
 
