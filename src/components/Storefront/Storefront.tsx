@@ -62,7 +62,7 @@ const Storefront = () => {
     <>
       <Navbar handleCartClick={()=>setDisplayCart(!displayCart)}></Navbar>
       {displayCart && <Cart cart={cart} handleAddCart={addToCart} handleSubtractCart={subtractFromCart}></Cart>}
-      <HashRouter basename="/shopping_cart/">
+      <HashRouter basename="/shopping_cart/#">
         <Routes>
           <Route path="/" element={<HomePage></HomePage>} />
           <Route path="/store" element={<StorePage handleAddCart={addToCart} handleSubtractCart={subtractFromCart}></StorePage>} />
