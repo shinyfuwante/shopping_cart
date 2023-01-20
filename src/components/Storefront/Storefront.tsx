@@ -1,9 +1,10 @@
-import { HashRouter, Routes, Route, BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "../HomePage/HomePage";
 import StorePage from "../StorePage/StorePage";
 import Navbar from "../Navbar/Navbar";
 import Cart from "../Cart/Cart";
 import { useState, MouseEventHandler } from "react";
+import routes from "../routes.json";
 
 export interface NavbarProps {
   handleCartClick: MouseEventHandler
@@ -62,12 +63,12 @@ const Storefront = () => {
     <>
       <Navbar handleCartClick={()=>setDisplayCart(!displayCart)}></Navbar>
       {displayCart && <Cart cart={cart} handleAddCart={addToCart} handleSubtractCart={subtractFromCart}></Cart>}
-      <HashRouter basename="/shopping_cart/#">
+      <BrowserRouter>
         <Routes>
-          <Route path="/" element={<HomePage></HomePage>} />
-          <Route path="/store" element={<StorePage handleAddCart={addToCart} handleSubtractCart={subtractFromCart}></StorePage>} />
+          <Route path={routes.HOME} element={<HomePage></HomePage>} />
+          <Route path={routes.STORE} element={<StorePage handleAddCart={addToCart} handleSubtractCart={subtractFromCart}></StorePage>} />
         </Routes>
-      </HashRouter>
+      </BrowserRouter>
     </>
   );
 };

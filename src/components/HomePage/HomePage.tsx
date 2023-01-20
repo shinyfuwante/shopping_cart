@@ -1,6 +1,7 @@
 import React from "react";
 import Navbar from "../Navbar/Navbar";
 import catImage from "../../assets/imgs/black_cat_landscape_lim_heng_swee.jpeg";
+import routes from "../routes.json";
 
 export default function Homepage() {
   return (
@@ -18,7 +19,7 @@ export default function Homepage() {
             </div>
           </div>
           <div className="text-center mt-10 text-lg text-neutral-100">
-            <a href="/shopping_cart/#/store" className="border-2 rounded p-2 text-2xl border-neutral-900 bg-neutral-900">Cat-alog</a>
+            <a href={routes.STORE} className="border-2 rounded p-2 text-2xl border-neutral-900 bg-neutral-900">Cat-alog</a>
           </div>
         </div>
       </div>
