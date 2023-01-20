@@ -5,8 +5,8 @@ import routes from "../routes.json";
 export default function Navbar ({handleCartClick}: NavbarProps) {
   return (
     <div className="font-quicksand flex justify-between bg-indigo-500 p-3 text-lg font-semibold text-indigo-50">
-      <a href={routes.HOME}>Black Cat Store</a>
-      <a href={routes.STORE}>Storefront</a>
+      <a href={routes.BASE + routes.HOME}>Black Cat Store</a>
+      <a href={routes.BASE + routes.STORE}>Storefront</a>
       <button onClick={handleCartClick}id="cart">
         <svg
           fill="#eef2ff"

@@ -1,4 +1,5 @@
 {
+  "BASE": "/shopping_cart",
   "HOME": "/",
   "STORE": "/store"
 }

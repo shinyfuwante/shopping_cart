@@ -63,7 +63,7 @@ const Storefront = () => {
     <>
       <Navbar handleCartClick={()=>setDisplayCart(!displayCart)}></Navbar>
       {displayCart && <Cart cart={cart} handleAddCart={addToCart} handleSubtractCart={subtractFromCart}></Cart>}
-      <BrowserRouter>
+      <BrowserRouter basename={routes.BASE}>
         <Routes>
           <Route path={routes.HOME} element={<HomePage></HomePage>} />
           <Route path={routes.STORE} element={<StorePage handleAddCart={addToCart} handleSubtractCart={subtractFromCart}></StorePage>} />
