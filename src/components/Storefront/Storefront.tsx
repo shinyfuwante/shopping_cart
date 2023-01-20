@@ -65,7 +65,7 @@ const Storefront = () => {
   };
   return (
     <>
-      <HashRouter basename={routes.BASE}>
+      <HashRouter>
         <Navbar handleCartClick={() => setDisplayCart(!displayCart)}></Navbar>
         {displayCart && (
           <Cart
