@@ -19,6 +19,7 @@ const Cart = ({ cart, handleAddCart, handleSubtractCart }: cartProps) => {
           })}
         </div>
       </div>
+      {cart.length > 0 && <div>Total: ${(cart.reduce((a, b) => a + (b.product.price * b.quantity), 0)).toFixed(2)}</div>}
     </div>
   );
 };
