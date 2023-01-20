@@ -4,8 +4,8 @@ import { NavbarProps } from "../Storefront/Storefront";
 export default function Navbar ({handleCartClick}: NavbarProps) {
   return (
     <div className="font-quicksand flex justify-between bg-indigo-500 p-3 text-lg font-semibold text-indigo-50">
-      <a href="/">Black Cat Store</a>
-      <a href="/store">Storefront</a>
+      <a href="/shopping_cart/">Black Cat Store</a>
+      <a href="/shopping_cart/store">Storefront</a>
       <button onClick={handleCartClick}id="cart">
         <svg
           fill="#eef2ff"
