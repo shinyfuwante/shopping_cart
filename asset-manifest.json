@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/shopping-cart/static/css/main.493d4109.css",
+    "main.js": "/shopping-cart/static/js/main.65810f4b.js",
+    "static/media/black_cat_landscape_lim_heng_swee.jpeg": "/shopping-cart/static/media/black_cat_landscape_lim_heng_swee.645c4dc76dbf79321e94.jpeg",
+    "index.html": "/shopping-cart/index.html",
+    "main.493d4109.css.map": "/shopping-cart/static/css/main.493d4109.css.map",
+    "main.65810f4b.js.map": "/shopping-cart/static/js/main.65810f4b.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.493d4109.css",
+    "static/js/main.65810f4b.js"
+  ]
+}
