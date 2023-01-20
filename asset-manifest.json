@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/shopping_cart/static/css/main.493d4109.css",
-    "main.js": "/shopping_cart/static/js/main.22269bde.js",
+    "main.js": "/shopping_cart/static/js/main.dcd454d9.js",
     "static/media/black_cat_landscape_lim_heng_swee.jpeg": "/shopping_cart/static/media/black_cat_landscape_lim_heng_swee.645c4dc76dbf79321e94.jpeg",
     "index.html": "/shopping_cart/index.html",
     "main.493d4109.css.map": "/shopping_cart/static/css/main.493d4109.css.map",
-    "main.22269bde.js.map": "/shopping_cart/static/js/main.22269bde.js.map"
+    "main.dcd454d9.js.map": "/shopping_cart/static/js/main.dcd454d9.js.map"
   },
   "entrypoints": [
     "static/css/main.493d4109.css",
-    "static/js/main.22269bde.js"
+    "static/js/main.dcd454d9.js"
   ]
 }
