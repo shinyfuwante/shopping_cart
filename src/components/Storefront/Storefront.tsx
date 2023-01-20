@@ -62,7 +62,7 @@ const Storefront = () => {
     <>
       <Navbar handleCartClick={()=>setDisplayCart(!displayCart)}></Navbar>
       {displayCart && <Cart cart={cart} handleAddCart={addToCart} handleSubtractCart={subtractFromCart}></Cart>}
-      <BrowserRouter basename="https://shinyfuwante.github.io/shopping_cart/">
+      <BrowserRouter basename="/shopping_cart/">
         <Routes>
           <Route path="/" element={<HomePage></HomePage>} />
           <Route path="/store" element={<StorePage handleAddCart={addToCart} handleSubtractCart={subtractFromCart}></StorePage>} />
