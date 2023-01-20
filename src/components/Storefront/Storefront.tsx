@@ -64,8 +64,8 @@ const Storefront = () => {
       {displayCart && <Cart cart={cart} handleAddCart={addToCart} handleSubtractCart={subtractFromCart}></Cart>}
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<HomePage></HomePage>} />
-          <Route path="/store" element={<StorePage handleAddCart={addToCart} handleSubtractCart={subtractFromCart}></StorePage>} />
+          <Route path="/shopping_cart/" element={<HomePage></HomePage>} />
+          <Route path="/shopping_cart/store" element={<StorePage handleAddCart={addToCart} handleSubtractCart={subtractFromCart}></StorePage>} />
         </Routes>
       </BrowserRouter>
     </>
