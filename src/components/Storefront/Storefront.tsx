@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "../HomePage/HomePage";
 import StorePage from "../StorePage/StorePage";
 import Navbar from "../Navbar/Navbar";
@@ -65,7 +65,7 @@ const Storefront = () => {
   };
   return (
     <>
-      <BrowserRouter basename={routes.BASE}>
+      <HashRouter basename={routes.BASE}>
         <Navbar handleCartClick={() => setDisplayCart(!displayCart)}></Navbar>
         {displayCart && (
           <Cart
@@ -87,7 +87,7 @@ const Storefront = () => {
             }
           />
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </>
   );
 };
