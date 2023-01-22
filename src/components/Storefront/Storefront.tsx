@@ -1,10 +1,23 @@
-import { HashRouter, BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import HomePage from "../HomePage/HomePage";
 import StorePage from "../StorePage/StorePage";
 import Navbar from "../Navbar/Navbar";
 import Cart from "../Cart/Cart";
 import { useState, MouseEventHandler } from "react";
 import routes from "../routes.json";
+import { initializeApp } from "firebase/app";
+import { getDatabase } from "firebase/database";
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyCNkCXFDa1TcImURQetGpps-BtdRnsG-cU",
+  authDomain: "fakestore-shoppingcart.firebaseapp.com",
+  projectId: "fakestore-shoppingcart",
+  storageBucket: "fakestore-shoppingcart.appspot.com",
+  messagingSenderId: "435433093701",
+  databaseURL: "https://fakestore-shoppingcart-default-rtdb.firebaseio.com/",
+  appId: "1:435433093701:web:3308f160161b5630fd012c",
+};
 
 export interface NavbarProps {
   handleCartClick: MouseEventHandler;
@@ -33,6 +46,11 @@ export interface cartedProduct {
   quantity: number;
 }
 const Storefront = () => {
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  // Initialize Realtime Database and get a reference to the service
+  const database = getDatabase(app);
+  
   const [displayCart, setDisplayCart] = useState(false);
   const [cart, setCart] = useState<cartedProduct[]>([]);
   const addToCart = (product: Product, amount = 1) => {
