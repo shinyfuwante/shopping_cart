@@ -12,6 +12,7 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   signOut,
+  User,
 } from "firebase/auth";
 
 // Your web app's Firebase configuration
@@ -65,11 +66,12 @@ const Storefront = () => {
   // sign in with "log-in" button
   const auth = getAuth(app);
   let result;
+  const [currentUser, setCurrentUser] = useState<User>();
   const signIn = async () => {
     result = await signInWithPopup(auth, provider);
-    const user = result.user;
-    if (user !== null) {
-      console.log(user);
+    setCurrentUser(result.user);
+    if (currentUser !== null) {
+      console.log(currentUser);
       setLoggedIn(true);
     }
   };
@@ -97,7 +99,9 @@ const Storefront = () => {
       productToUpdate.quantity += amount;
       setCart(newCart);
     }
-    // writeToCart(userId);
+    if (loggedIn) {
+      writeToCart(currentUser!.uid);
+    }
   };
 
   const subtractFromCart = (product: Product, amount = 1) => {
