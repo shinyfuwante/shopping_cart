@@ -6,7 +6,7 @@ import Cart from "../Cart/Cart";
 import { useState, MouseEventHandler } from "react";
 import routes from "../routes.json";
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref, set } from "firebase/database";
+import { getDatabase, ref, set, get, child } from "firebase/database";
 import {
   getAuth,
   GoogleAuthProvider,
@@ -72,13 +72,27 @@ const Storefront = () => {
     setCurrentUser(result.user);
     if (currentUser !== null) {
       console.log(currentUser);
-      setLoggedIn(true);
+      setLoggedIn(true)
+      readCart(currentUser);
     }
   };
 
   function writeToCart(userId: any) {
     set(ref(database, "users/" + userId), {
       user_cart: cart,
+    });
+  }
+
+  function readCart(userId: any) {
+    const dbRef = ref(database);
+    get(child(dbRef, `users/${userId.uid}`)).then((snapshot) => {
+      if (snapshot.exists()) {
+        const data = snapshot.val();
+        const loadedCart = data.user_cart;
+        setCart(loadedCart);
+      } else {
+        console.log("No data available");
+      }
     });
   }
 
@@ -116,6 +130,9 @@ const Storefront = () => {
         newCart = newCart.filter((product) => product !== productToUpdate);
       }
       setCart(newCart);
+    }
+    if (loggedIn) {
+      writeToCart(currentUser!.uid);
     }
   };
 
