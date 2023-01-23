@@ -6,7 +6,13 @@ import Cart from "../Cart/Cart";
 import { useState, MouseEventHandler } from "react";
 import routes from "../routes.json";
 import { initializeApp } from "firebase/app";
-import { getDatabase } from "firebase/database";
+import { getDatabase, ref, set } from "firebase/database";
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut,
+} from "firebase/auth";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -21,6 +27,8 @@ const firebaseConfig = {
 
 export interface NavbarProps {
   handleCartClick: MouseEventHandler;
+  loginFn: (params: any) => void;
+  logoutFn: (params:any) => void;
 }
 export interface cartProps {
   cart: Array<cartedProduct>;
@@ -50,9 +58,24 @@ const Storefront = () => {
   const app = initializeApp(firebaseConfig);
   // Initialize Realtime Database and get a reference to the service
   const database = getDatabase(app);
-  
+  const provider = new GoogleAuthProvider();
+
+  // sign in with "log-in" button
+  const auth = getAuth(app);
+  let result;
+  const signIn = async () => {
+    result = await signInWithPopup(auth, provider);
+  };
+
+  function writeToCart(userId: any) {
+    set(ref(database, "users/" + userId), {
+      user_cart: cart,
+    });
+  }
+
   const [displayCart, setDisplayCart] = useState(false);
   const [cart, setCart] = useState<cartedProduct[]>([]);
+
   const addToCart = (product: Product, amount = 1) => {
     const productToAdd = { product: product, quantity: amount };
     const oldProduct = cart.findIndex(
@@ -66,7 +89,9 @@ const Storefront = () => {
       productToUpdate.quantity += amount;
       setCart(newCart);
     }
+    // writeToCart(userId);
   };
+
   const subtractFromCart = (product: Product, amount = 1) => {
     const oldProduct = cart.findIndex(
       (cartedItem) => cartedItem.product === product
@@ -81,10 +106,15 @@ const Storefront = () => {
       setCart(newCart);
     }
   };
+
   return (
     <>
       <HashRouter>
-        <Navbar handleCartClick={() => setDisplayCart(!displayCart)}></Navbar>
+        <Navbar
+          handleCartClick={() => setDisplayCart(!displayCart)}
+          loginFn={() => signIn()} 
+          logoutFn={()=> signOut(auth)}
+        ></Navbar>
         {displayCart && (
           <Cart
             cart={cart}
