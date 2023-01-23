@@ -2,13 +2,14 @@ import React from "react";
 import { NavbarProps } from "../Storefront/Storefront";
 import routes from "../routes.json";
 
-export default function Navbar({ handleCartClick, loginFn }: NavbarProps) {
+export default function Navbar({ handleCartClick, loginFn, loggedIn, logoutFn }: NavbarProps) {
   return (
     <div className="font-quicksand flex justify-between bg-indigo-500 p-3 text-lg font-semibold text-indigo-50">
       <a href={routes.BASE + routes.HOME}>Black Cat Store</a>
       <a href={routes.BASE + routes.STORE}>Storefront</a>
       <div className="flex justify-between gap-4">
-        <button onClick={loginFn}>Log In</button>
+        {!loggedIn &&<button onClick={loginFn}>Log In</button>}
+        {loggedIn && <button onClick={logoutFn}>Log Out</button>}
         <button onClick={handleCartClick} id="cart">
           <svg
             fill="#eef2ff"

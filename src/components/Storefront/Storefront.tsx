@@ -28,7 +28,8 @@ const firebaseConfig = {
 export interface NavbarProps {
   handleCartClick: MouseEventHandler;
   loginFn: (params: any) => void;
-  logoutFn: (params:any) => void;
+  logoutFn: (params: any) => void;
+  loggedIn: boolean;
 }
 export interface cartProps {
   cart: Array<cartedProduct>;
@@ -65,6 +66,11 @@ const Storefront = () => {
   let result;
   const signIn = async () => {
     result = await signInWithPopup(auth, provider);
+    const user = result.user;
+    if (user !== null) {
+      console.log(user);
+      setLoggedIn(true);
+    }
   };
 
   function writeToCart(userId: any) {
@@ -74,6 +80,7 @@ const Storefront = () => {
   }
 
   const [displayCart, setDisplayCart] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
   const [cart, setCart] = useState<cartedProduct[]>([]);
 
   const addToCart = (product: Product, amount = 1) => {
@@ -112,8 +119,12 @@ const Storefront = () => {
       <HashRouter>
         <Navbar
           handleCartClick={() => setDisplayCart(!displayCart)}
-          loginFn={() => signIn()} 
-          logoutFn={()=> signOut(auth)}
+          loginFn={() => signIn()}
+          logoutFn={() => {
+            signOut(auth);
+            setLoggedIn(false);
+          }}
+          loggedIn={loggedIn}
         ></Navbar>
         {displayCart && (
           <Cart
