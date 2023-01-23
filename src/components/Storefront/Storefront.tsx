@@ -35,6 +35,7 @@ export interface cartProps {
   cart: Array<cartedProduct>;
   handleAddCart: (params: any) => void;
   handleSubtractCart: (params: any) => void;
+  closeCart: () => void;
 }
 export interface StorePageProps {
   handleAddCart: (params: any) => void;
@@ -131,6 +132,7 @@ const Storefront = () => {
             cart={cart}
             handleAddCart={addToCart}
             handleSubtractCart={subtractFromCart}
+            closeCart={() => setDisplayCart(false)}
           ></Cart>
         )}
 
