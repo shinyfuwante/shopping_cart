@@ -14,8 +14,8 @@ import {
   signInWithPopup,
   signOut,
   User,
-  UserCredential,
 } from "firebase/auth";
+import { useObject } from "react-firebase-hooks/database";
 
 import { useAuthState } from "react-firebase-hooks/auth";
 
@@ -70,25 +70,25 @@ const Storefront = () => {
   // sign in with "log-in" button
   const auth = getAuth(app);
   const [user] = useAuthState(auth);
-  let result: UserCredential;
 
   const signIn = async () => {
     try {
-      result = await signInWithPopup(auth, provider);
+      const result = await signInWithPopup(auth, provider);
     } catch (error) {
       console.log(error);
     }
   };
 
-  function writeToCart(uid: String) {
+  function writeToCart(uid: String, newCart: Array<cartedProduct>) {
     set(ref(database, "users/" + uid), {
-      user_cart: cart,
+      user_cart: newCart,
     });
   }
 
-  function readCart(uid: string) {
+  function readCart(user: User) {
     const dbRef = ref(database);
-    get(child(dbRef, `users/${uid}`)).then((snapshot) => {
+    console.log('in read cart');
+    get(child(dbRef, `users/${user.uid}`)).then((snapshot) => {
       if (snapshot.exists()) {
         const data = snapshot.val();
         const loadedCart = data.user_cart;
@@ -106,28 +106,29 @@ const Storefront = () => {
 
   const addToCart = (product: Product, amount = 1) => {
     const productToAdd = { product: product, quantity: amount };
+    let cartCopy = [...cart]
     const oldProduct = cart.findIndex(
       (cartedItem) => cartedItem.product === product
     );
     if (oldProduct === -1) {
-      setCart([...cart, productToAdd]);
+      cartCopy = [...cartCopy, productToAdd];
     } else {
-      const newCart = [...cart];
-      const productToUpdate = newCart[oldProduct];
+      const productToUpdate = cartCopy[oldProduct];
       productToUpdate.quantity += amount;
-      setCart(newCart);
+      setCart(cartCopy);
     }
     if (user !== null && user !== undefined) {
-      writeToCart(user.uid);
+      writeToCart(user.uid, cartCopy);
     }
+    setCart(cartCopy);
   };
 
   const subtractFromCart = (product: Product, amount = 1) => {
     const oldProduct = cart.findIndex(
       (cartedItem) => cartedItem.product === product
     );
+    let newCart = [...cart];
     if (oldProduct > -1) {
-      let newCart = [...cart];
       const productToUpdate = newCart[oldProduct];
       productToUpdate.quantity -= amount;
       if (productToUpdate.quantity === 0) {
@@ -136,15 +137,27 @@ const Storefront = () => {
       setCart(newCart);
     }
     if (user !== null && user !== undefined) {
-      writeToCart(user.uid);
+      writeToCart(user.uid, newCart);
     }
   };
+
+  const handleCartClick = () => {
+    if (!displayCart) {
+      // about to view cart
+      // fetch cart from db (if user)
+      if (user) {
+        readCart(user);
+      }
+      setDisplayCart(!displayCart);
+    }
+    setDisplayCart(!displayCart);
+  }
 
   return (
     <>
       <HashRouter>
         <Navbar
-          handleCartClick={() => setDisplayCart(!displayCart)}
+          handleCartClick={() => handleCartClick()}
           loginFn={() => signIn()}
           logoutFn={() => {
             signOut(auth);
