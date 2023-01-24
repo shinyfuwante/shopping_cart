@@ -5,6 +5,7 @@ import Navbar from "../Navbar/Navbar";
 import Cart from "../Cart/Cart";
 import { useState, MouseEventHandler } from "react";
 import routes from "../routes.json";
+
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, set, get, child } from "firebase/database";
 import {
@@ -13,7 +14,10 @@ import {
   signInWithPopup,
   signOut,
   User,
+  UserCredential,
 } from "firebase/auth";
+
+import { useAuthState } from "react-firebase-hooks/auth";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -30,7 +34,7 @@ export interface NavbarProps {
   handleCartClick: MouseEventHandler;
   loginFn: (params: any) => void;
   logoutFn: (params: any) => void;
-  loggedIn: boolean;
+  user: User | null | undefined;
 }
 export interface cartProps {
   cart: Array<cartedProduct>;
@@ -65,30 +69,30 @@ const Storefront = () => {
 
   // sign in with "log-in" button
   const auth = getAuth(app);
-  let result;
-  const [currentUser, setCurrentUser] = useState<User>();
+  const [user] = useAuthState(auth);
+  let result: UserCredential;
+
   const signIn = async () => {
-    result = await signInWithPopup(auth, provider);
-    setCurrentUser(result.user);
-    if (currentUser !== null) {
-      console.log(currentUser);
-      setLoggedIn(true)
-      readCart(currentUser);
+    try {
+      result = await signInWithPopup(auth, provider);
+    } catch (error) {
+      console.log(error);
     }
   };
 
-  function writeToCart(userId: any) {
-    set(ref(database, "users/" + userId), {
+  function writeToCart(uid: String) {
+    set(ref(database, "users/" + uid), {
       user_cart: cart,
     });
   }
 
-  function readCart(userId: any) {
+  function readCart(uid: string) {
     const dbRef = ref(database);
-    get(child(dbRef, `users/${userId.uid}`)).then((snapshot) => {
+    get(child(dbRef, `users/${uid}`)).then((snapshot) => {
       if (snapshot.exists()) {
         const data = snapshot.val();
         const loadedCart = data.user_cart;
+        console.log(loadedCart);
         setCart(loadedCart);
       } else {
         console.log("No data available");
@@ -97,7 +101,7 @@ const Storefront = () => {
   }
 
   const [displayCart, setDisplayCart] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false);
+
   const [cart, setCart] = useState<cartedProduct[]>([]);
 
   const addToCart = (product: Product, amount = 1) => {
@@ -113,8 +117,8 @@ const Storefront = () => {
       productToUpdate.quantity += amount;
       setCart(newCart);
     }
-    if (loggedIn) {
-      writeToCart(currentUser!.uid);
+    if (user !== null && user !== undefined) {
+      writeToCart(user.uid);
     }
   };
 
@@ -131,8 +135,8 @@ const Storefront = () => {
       }
       setCart(newCart);
     }
-    if (loggedIn) {
-      writeToCart(currentUser!.uid);
+    if (user !== null && user !== undefined) {
+      writeToCart(user.uid);
     }
   };
 
@@ -144,9 +148,8 @@ const Storefront = () => {
           loginFn={() => signIn()}
           logoutFn={() => {
             signOut(auth);
-            setLoggedIn(false);
           }}
-          loggedIn={loggedIn}
+          user={user}
         ></Navbar>
         {displayCart && (
           <Cart
