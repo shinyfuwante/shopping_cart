@@ -1,7 +1,7 @@
 Live Demo:
 https://shinyfuwante.github.io/shopping_cart/
 
-Basic shopping cart implementation made using React, Typescript, TailwindCSS, and React Router. 
+Basic shopping cart implementation made using React, Typescript, TailwindCSS, React Router, and Firebase's Realtime Database.
 
 The store uses the FakeStore API to populate the storefront. This was an exercise of fetching data from an API and processing it and displaying it to the client. 
 
