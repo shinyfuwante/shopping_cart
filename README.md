@@ -9,8 +9,10 @@ The typescript is probably very naive, but I found that using Typescript help to
 
 React Router is used for client side routing, just for fun. 
 
+The backend is just the Realtime Database using Firebase. The cart will be saved in the database as long as the user signs in using Google Auth. I first tried to use it strictly from the documents but found myself fumbling a little. Instead, I found the firebase hooks NPM bundle and that made things a little easier. To help reinforce my learning, I went through the documentation for the NPM bundle and understood where my inexperience led me to my mistakes.
+
 Potential improvements;
-1) Some sort of data persistence (local storage perhaps?)
+1) Some sort of data persistence (local storage perhaps?) [DONE, implemented with Firebase ( as long as user is logged in, else the cart does not save).
 2) Some sort of loading screen while waiting to fetch from FakeStore.
 
 ## ----------------------------------------------------
